@@ -65,4 +65,42 @@ class Solution {
         return s.substring(sp, sp + maxLen);
     }
 }
-
+class Solution {
+    public String longestPalindrome(String s) {//O(n^2)
+        //using tabulation
+        int n = s.length();
+        Boolean[][] dp = new Boolean[n][n];
+        int maxLen = 1;
+        int sp = -1;
+        // for length = 1; always true and palindrome        
+        for(int i = 0;i < n;i++){
+            dp[i][i] = true;
+            sp = i;
+        }
+        // for lengths >= 2;
+        for(int L = 2;L<=n;L++){
+            for(int i = 0;i+L-1<n;i++){
+                int j = i+L-1;//therefore in for loop condition j<n
+                // if length == 2
+                if (i+1 == j && s.charAt(i) == s.charAt(j)){
+                    dp[i][j] = true;
+                    maxLen = 2;
+                    sp = i;
+                }
+                // if length > 2
+                else if (s.charAt(i) == s.charAt(j) && dp[i+1][j-1]){
+                    dp[i][j] = true;
+                    if (j-i+1>maxLen){
+                        maxLen = j-i+1;
+                        sp = i;
+                    }
+                }
+                else{
+                    // not a palindrome
+                    dp[i][j] = false;
+                }
+            }
+        }
+        return s.substring(sp, sp+maxLen);
+    }
+}
