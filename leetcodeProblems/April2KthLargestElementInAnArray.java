@@ -73,6 +73,8 @@ class Solution {
 
     public int findKthLargest(int[] nums, int k) {
         // using QuickSelect Algo
+	// WC:O(n^2) TC : due to n+n-1+n-2+... and O(n) : SC(stack space)
+	// Avg case: O(n) TC : due to n+n/2+n/4+... and O(logn) : SC(stack space)
         int n = nums.length;
         quickSelect(nums, k-1, 0, n - 1);
         return ans;
